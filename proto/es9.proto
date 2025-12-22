@@ -1,0 +1,450 @@
+syntax = "proto3";
+
+message Usage {
+  float usage_dsp0 = 1;  // [0.0, 1.0]
+  float usage_dsp1 = 2;  // [0.0, 1.0]
+  float usage_dsp2 = 3;  // [0.0, 1.0]
+  float usage_dsp3 = 4;  // [0.0, 1.0]
+}
+
+enum Channel {
+  CHANNEL_UNSPECIFIED = 0;
+  
+  CHANNEL_OUTPUT_1 = 1;
+  CHANNEL_OUTPUT_2 = 2;
+  CHANNEL_OUTPUT_3 = 3;
+  CHANNEL_OUTPUT_4 = 4;
+  CHANNEL_OUTPUT_5 = 5;
+  CHANNEL_OUTPUT_6 = 6;
+  CHANNEL_OUTPUT_7 = 7;
+  CHANNEL_OUTPUT_8 = 8;
+
+  CHANNEL_INPUT_1 = 20;
+  CHANNEL_INPUT_2 = 21;
+  CHANNEL_INPUT_3 = 22;
+  CHANNEL_INPUT_4 = 23;
+  CHANNEL_INPUT_5 = 24;
+  CHANNEL_INPUT_6 = 25;
+  CHANNEL_INPUT_7 = 26;
+  CHANNEL_INPUT_8 = 27;
+  CHANNEL_INPUT_9 = 28;
+  CHANNEL_INPUT_10 = 29;
+  CHANNEL_INPUT_11 = 30;
+  CHANNEL_INPUT_12 = 31;
+  CHANNEL_INPUT_13 = 32;
+  CHANNEL_INPUT_14 = 33;
+
+  CHANNEL_BUS_1 = 40;
+  CHANNEL_BUS_2 = 41;
+  CHANNEL_BUS_3 = 42;
+  CHANNEL_BUS_4 = 43;
+  CHANNEL_BUS_5 = 44;
+  CHANNEL_BUS_6 = 45;
+  CHANNEL_BUS_7 = 46;
+  CHANNEL_BUS_8 = 47;
+  CHANNEL_BUS_9 = 48;
+  CHANNEL_BUS_10 = 49;
+  CHANNEL_BUS_11 = 50;
+  CHANNEL_BUS_12 = 51;
+  CHANNEL_BUS_13 = 52;
+  CHANNEL_BUS_14 = 53;
+  CHANNEL_BUS_15 = 54;
+  CHANNEL_BUS_16 = 55;
+
+  CHANNEL_USB_1 = 60;
+  CHANNEL_USB_2 = 61;
+  CHANNEL_USB_3 = 62;
+  CHANNEL_USB_4 = 63;
+  CHANNEL_USB_5 = 64;
+  CHANNEL_USB_6 = 65;
+  CHANNEL_USB_7 = 66;
+  CHANNEL_USB_8 = 67;
+  CHANNEL_USB_9 = 68;
+  CHANNEL_USB_10 = 69;
+  CHANNEL_USB_11 = 70;
+  CHANNEL_USB_12 = 71;
+  CHANNEL_USB_13 = 72;
+  CHANNEL_USB_14 = 73;
+  CHANNEL_USB_15 = 74;
+  CHANNEL_USB_16 = 75;
+
+  CHANNEL_MIX_1 = 90;
+  CHANNEL_MIX_2 = 91;
+  CHANNEL_MIX_3 = 92;
+  CHANNEL_MIX_4 = 93;
+  CHANNEL_MIX_5 = 94;
+  CHANNEL_MIX_6 = 95;
+  CHANNEL_MIX_7 = 96;
+  CHANNEL_MIX_8 = 97;
+  CHANNEL_MIX_9 = 98;
+  CHANNEL_MIX_10 = 99;
+  CHANNEL_MIX_11 = 100;
+  CHANNEL_MIX_12 = 101;
+  CHANNEL_MIX_13 = 102;
+  CHANNEL_MIX_14 = 103;
+  CHANNEL_MIX_15 = 104;
+  CHANNEL_MIX_16 = 105;
+
+  CHANNEL_SPDIF_L = 110;
+  CHANNEL_SPDIF_R = 111;
+
+  CHANNEL_MAIN_OUT_L = 130;
+  CHANNEL_MAIN_OUT_R = 131;
+
+  CHANNEL_PHONES_L = 150;
+  CHANNEL_PHONES_R = 151;
+
+  CHANNEL_ES5_L = 170;
+  CHANNEL_ES5_R = 171;
+}
+
+enum MixerLink {
+  MIXER_LINK_UNSPECIFIED = 0;
+
+  MIXER_LINK_INPUT_1_2 = 1;
+  MIXER_LINK_INPUT_3_4 = 2;
+  MIXER_LINK_INPUT_5_6 = 3;
+  MIXER_LINK_INPUT_7_8 = 4;
+  MIXER_LINK_INPUT_9_10 = 5;
+  MIXER_LINK_INPUT_11_12 = 6;
+  MIXER_LINK_INPUT_13_14 = 7;
+
+  MIXER_LINK_BUS_1_2 = 8;
+  MIXER_LINK_BUS_3_4 = 9;
+  MIXER_LINK_BUS_5_6 = 10;
+  MIXER_LINK_BUS_7_8 = 11;
+  MIXER_LINK_BUS_9_10 = 12;
+  MIXER_LINK_BUS_11_12 = 13;
+  MIXER_LINK_BUS_13_14 = 14;
+  MIXER_LINK_BUS_15_16 = 15;
+
+  MIXER_LINK_USB_1_2 = 16;
+  MIXER_LINK_USB_3_4 = 17;
+  MIXER_LINK_USB_5_6 = 18;
+  MIXER_LINK_USB_7_8 = 19;
+  MIXER_LINK_USB_9_10 = 20;
+  MIXER_LINK_USB_11_12 = 21;
+  MIXER_LINK_USB_13_14 = 22;
+  MIXER_LINK_USB_15_16 = 23;
+
+  MIXER_LINK_MIX_1_2 = 24;
+  MIXER_LINK_MIX_3_4 = 25;
+  MIXER_LINK_MIX_5_6 = 26;
+  MIXER_LINK_MIX_7_8 = 27;
+  MIXER_LINK_MIX_9_10 = 28;
+  MIXER_LINK_MIX_11_12 = 29;
+  MIXER_LINK_MIX_13_14 = 30;
+  MIXER_LINK_MIX_15_16 = 31;
+}
+
+enum FilterType {
+  FILTER_TYPE_UNSPECIFIED = 0;
+
+  LOW_PASS_1ST_ORDER = 1;
+  HIGH_PASS_1ST_ORDER = 2;
+  LOW_PASS_2ND_ORDER = 3;
+  HIGH_PASS_2ND_ORDER = 4;
+  LOW_SHELF = 5;
+  HIGH_SHELF = 6;
+  PEAK = 7;
+  INVERT_PHASE = 8;
+}
+
+message CrosspointMixer8x8Configuration {
+  message CrosspointMixer1x8Configuration {
+    int32 input1_level = 1;
+    int32 input2_level = 2;
+    int32 input3_level = 3;
+    int32 input4_level = 4;
+    int32 input5_level = 5;
+    int32 input6_level = 6;
+    int32 input7_level = 7;
+    int32 input8_level = 8;
+  };
+  CrosspointMixer1x8Configuration output1_configuration = 1;
+  CrosspointMixer1x8Configuration output2_configuration = 2;
+  CrosspointMixer1x8Configuration output3_configuration = 3;
+  CrosspointMixer1x8Configuration output4_configuration = 4;
+  CrosspointMixer1x8Configuration output5_configuration = 5;
+  CrosspointMixer1x8Configuration output6_configuration = 6;
+  CrosspointMixer1x8Configuration output7_configuration = 7;
+  CrosspointMixer1x8Configuration output8_configuration = 8;
+};
+
+message MixConfiguration {
+  CrosspointMixer8x8Configuration mixer1_crosspoint_configuration = 10;
+  CrosspointMixer8x8Configuration mixer2_crosspoint_configuration = 11;
+
+  message MixVirtualConfiguration {
+    int32 vmix = 1;
+    int32 vpan = 2;
+  };
+  MixVirtualConfiguration mix1_vconf = 20;
+  MixVirtualConfiguration mix2_vconf = 21;
+  MixVirtualConfiguration mix3_vconf = 22;
+  MixVirtualConfiguration mix4_vconf = 23;
+  MixVirtualConfiguration mix5_vconf = 24;
+  MixVirtualConfiguration mix6_vconf = 25;
+  MixVirtualConfiguration mix7_vconf = 26;
+  MixVirtualConfiguration mix8_vconf = 27;
+  MixVirtualConfiguration mix9_vconf = 28;
+  MixVirtualConfiguration mix10_vconf = 29;
+  MixVirtualConfiguration mix11_vconf = 30;
+  MixVirtualConfiguration mix12_vconf = 31;
+  MixVirtualConfiguration mix13_vconf = 32;
+  MixVirtualConfiguration mix14_vconf = 33;
+  MixVirtualConfiguration mix15_vconf = 34;
+  MixVirtualConfiguration mix16_vconf = 35;
+};
+
+message Configuration {
+  int32 version = 100;
+
+  message HighPassFilterConfiguration {
+    bool channel_pair_1_2_enabled = 1;
+    bool channel_pair_3_4_enabled = 2;
+    bool channel_pair_5_6_enabled = 3;
+    bool channel_pair_7_8_enabled = 4;
+    bool channel_pair_9_10_enabled = 5;
+    bool channel_pair_11_12_enabled = 6;
+    bool channel_pair_13_14_enabled = 7;
+  };
+  HighPassFilterConfiguration high_pass_filter_configuration = 1;
+
+  message OptionsConfiguration {
+    /** If true, the SPDIF output is used; otherwise, an additional mixer block is used */
+    bool use_spdif = 1;
+
+    /** Enable the MIDI Thru function */
+    bool use_midi_through = 2;
+  };
+  OptionsConfiguration options_configuration = 2;
+
+  message MixerLinksConfiguration {
+    bool link_channel_input_1_2 = 1;
+    bool link_channel_input_3_4 = 2;
+    bool link_channel_input_5_6 = 3;
+    bool link_channel_input_7_8 = 4;
+    bool link_channel_input_9_10 = 5;
+    bool link_channel_input_11_12 = 6;
+    bool link_channel_input_13_14 = 7;
+    bool link_channel_bus_1_2 = 8;
+    bool link_channel_bus_3_4 = 9;
+    bool link_channel_bus_5_6 = 10;
+    bool link_channel_bus_7_8 = 11;
+    bool link_channel_bus_9_10 = 12;
+    bool link_channel_bus_11_12 = 13;
+    bool link_channel_bus_13_14 = 14;
+    bool link_channel_bus_15_16 = 15;
+    bool link_channel_usb_1_2 = 16;
+    bool link_channel_usb_3_4 = 17;
+    bool link_channel_usb_5_6 = 18;
+    bool link_channel_usb_7_8 = 19;
+    bool link_channel_usb_9_10 = 20;
+    bool link_channel_usb_11_12 = 21;
+    bool link_channel_usb_13_14 = 22;
+    bool link_channel_usb_15_16 = 23;
+    bool link_channel_mix_1_2 = 24;
+    bool link_channel_mix_3_4 = 25;
+    bool link_channel_mix_5_6 = 26;
+    bool link_channel_mix_7_8 = 27;
+    bool link_channel_mix_9_10 = 28;
+    bool link_channel_mix_11_12 = 29;
+    bool link_channel_mix_13_14 = 30;
+    bool link_channel_mix_15_16 = 31;
+  };
+  MixerLinksConfiguration mixer_links_configuration = 3;
+
+  message MidiChannelsConfiguration {
+    int32 usb_midi_channel = 1;  // [1,16] or 0 for disabled
+    int32 din_midi_channel = 2;   // [1,16] or 0 for disabled
+  };
+  MidiChannelsConfiguration midi_channels_configuration = 4;
+
+  message MixInputFilterConfiguration {
+    message FilterConfiguration {
+      bool enabled = 100;
+      FilterType filter_type = 1;
+      float frequency_hz = 2;
+      float q_factor = 3;
+      float gain = 4;
+    }
+
+    // Mix 1-8 filters apply to Mixer 1
+    FilterConfiguration mix1_filter1 = 1;
+    FilterConfiguration mix1_filter2 = 2;
+    FilterConfiguration mix1_filter3 = 3;
+    FilterConfiguration mix1_filter4 = 4;
+
+    FilterConfiguration mix2_filter1 = 5;
+    FilterConfiguration mix2_filter2 = 6;
+    FilterConfiguration mix2_filter3 = 7;
+    FilterConfiguration mix2_filter4 = 8;
+
+    FilterConfiguration mix3_filter1 = 9;
+    FilterConfiguration mix3_filter2 = 10;
+    FilterConfiguration mix3_filter3 = 11;
+    FilterConfiguration mix3_filter4 = 12;
+
+    FilterConfiguration mix4_filter1 = 13;
+    FilterConfiguration mix4_filter2 = 14;
+    FilterConfiguration mix4_filter3 = 15;
+    FilterConfiguration mix4_filter4 = 16;
+
+    FilterConfiguration mix5_filter1 = 17;
+    FilterConfiguration mix5_filter2 = 18;
+    FilterConfiguration mix5_filter3 = 19;
+    FilterConfiguration mix5_filter4 = 20;
+
+    FilterConfiguration mix6_filter1 = 21;
+    FilterConfiguration mix6_filter2 = 22;
+    FilterConfiguration mix6_filter3 = 23;
+    FilterConfiguration mix6_filter4 = 24;
+
+    FilterConfiguration mix7_filter1 = 25;
+    FilterConfiguration mix7_filter2 = 26;
+    FilterConfiguration mix7_filter3 = 27;
+    FilterConfiguration mix7_filter4 = 28;
+
+    FilterConfiguration mix8_filter1 = 29;
+    FilterConfiguration mix8_filter2 = 30;
+    FilterConfiguration mix8_filter3 = 31;
+    FilterConfiguration mix8_filter4 = 32;
+
+    // Mix 9-16 filters apply to Mixer 2
+    FilterConfiguration mix9_filter1 = 33;
+    FilterConfiguration mix9_filter2 = 34;
+    FilterConfiguration mix9_filter3 = 35;
+    FilterConfiguration mix9_filter4 = 36;
+
+    FilterConfiguration mix10_filter1 = 37;
+    FilterConfiguration mix10_filter2 = 38;
+    FilterConfiguration mix10_filter3 = 39;
+    FilterConfiguration mix10_filter4 = 40;
+
+    FilterConfiguration mix11_filter1 = 41;
+    FilterConfiguration mix11_filter2 = 42;
+    FilterConfiguration mix11_filter3 = 43;
+    FilterConfiguration mix11_filter4 = 44;
+
+    FilterConfiguration mix12_filter1 = 45;
+    FilterConfiguration mix12_filter2 = 46;
+    FilterConfiguration mix12_filter3 = 47;
+    FilterConfiguration mix12_filter4 = 48;
+
+    FilterConfiguration mix13_filter1 = 49;
+    FilterConfiguration mix13_filter2 = 50;
+    FilterConfiguration mix13_filter3 = 51;
+    FilterConfiguration mix13_filter4 = 52;
+
+    FilterConfiguration mix14_filter1 = 53;
+    FilterConfiguration mix14_filter2 = 54;
+    FilterConfiguration mix14_filter3 = 55;
+    FilterConfiguration mix14_filter4 = 56;
+
+    FilterConfiguration mix15_filter1 = 57;
+    FilterConfiguration mix15_filter2 = 58;
+    FilterConfiguration mix15_filter3 = 59;
+    FilterConfiguration mix15_filter4 = 60;
+
+    FilterConfiguration mix16_filter1 = 61;
+    FilterConfiguration mix16_filter2 = 62;
+    FilterConfiguration mix16_filter3 = 63;
+    FilterConfiguration mix16_filter4 = 64;
+  };
+  MixInputFilterConfiguration mix_input_filter_configuration = 5;
+
+  message MixSmoothingConfiguration {
+    bool mix1_enabled = 1;
+    bool mix2_enabled = 2;
+    bool mix3_enabled = 3;
+    bool mix4_enabled = 4;
+    bool mix5_enabled = 5;
+    bool mix6_enabled = 6;
+    bool mix7_enabled = 7;
+    bool mix8_enabled = 8;
+    bool mix9_enabled = 9;
+    bool mix10_enabled = 10;
+    bool mix11_enabled = 11;
+    bool mix12_enabled = 12;
+    bool mix13_enabled = 13;
+    bool mix14_enabled = 14;
+    bool mix15_enabled = 15;
+    bool mix16_enabled = 16;
+  };
+  MixSmoothingConfiguration mix_smoothing_configuration = 6;
+
+  message UsbRoutingConfiguration {
+    Channel input1_channel = 1;
+    Channel input2_channel = 2;
+    Channel input3_channel = 3;
+    Channel input4_channel = 4;
+    Channel input5_channel = 5;
+    Channel input6_channel = 6;
+    Channel input7_channel = 7;
+    Channel input8_channel = 8;
+    Channel input9_channel = 9;
+    Channel input10_channel = 10;
+    Channel input11_channel = 11;
+    Channel input12_channel = 12;
+    Channel input13_channel = 13;
+    Channel input14_channel = 14;
+    Channel input15_channel = 15;
+    Channel input16_channel = 16;
+
+    Channel output1_channel = 17;
+    Channel output2_channel = 18;
+    Channel output3_channel = 19;
+    Channel output4_channel = 20;
+    Channel output5_channel = 21;
+    Channel output6_channel = 22;
+    Channel output7_channel = 23;
+    Channel output8_channel = 24;
+    Channel output9_channel = 25;
+    Channel output10_channel = 26;
+    Channel output11_channel = 27;
+    Channel output12_channel = 28;
+    Channel output13_channel = 29;
+    Channel output14_channel = 30;
+    Channel output15_channel = 31;
+    Channel output16_channel = 32;
+  };
+  UsbRoutingConfiguration usb_routing_configuration = 7;
+
+  message MixerRoutingConfiguration {
+    Channel input1_channel = 1;
+    Channel input2_channel = 2;
+    Channel input3_channel = 3;
+    Channel input4_channel = 4;
+    Channel input5_channel = 5;
+    Channel input6_channel = 6;
+    Channel input7_channel = 7;
+    Channel input8_channel = 8;
+
+    Channel output1_channel = 9;
+    Channel output2_channel = 10;
+    Channel output3_channel = 11;
+    Channel output4_channel = 12;
+    Channel output5_channel = 13;
+    Channel output6_channel = 14;
+    Channel output7_channel = 15;
+    Channel output8_channel = 16;
+  };
+  MixerRoutingConfiguration mixer1_routing_configuration = 8;
+  MixerRoutingConfiguration mixer2_routing_configuration = 9;
+
+  CrosspointMixer8x8Configuration mixer1_crosspoint_configuration = 10;
+  CrosspointMixer8x8Configuration mixer2_crosspoint_configuration = 11;
+
+  message OutputDCOffsetConfiguration {
+    int32 output1_offset = 1;
+    int32 output2_offset = 2;
+    int32 output3_offset = 3;
+    int32 output4_offset = 4;
+    int32 output5_offset = 5;
+    int32 output6_offset = 6;
+    int32 output7_offset = 7;
+    int32 output8_offset = 8;
+  };
+  OutputDCOffsetConfiguration output_dc_offset_configuration = 12;
+}

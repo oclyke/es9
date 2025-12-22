@@ -1,0 +1,5 @@
+bazel-midimac
+bazel-out
+bazel-bin
+bazel-testlogs
+.venv

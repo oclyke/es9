@@ -1,0 +1,26 @@
+load("@rules_proto_grpc_python//:defs.bzl", "python_proto_library", "python_grpc_library", "python_proto_compile", "python_grpc_compile")
+
+proto_library(
+  name = "es9_proto",
+  srcs = ["es9.proto"],
+  visibility = ["//visibility:public"],
+)
+
+proto_library(
+  name = "service_proto",
+  srcs = ["service.proto"],
+  visibility = ["//visibility:public"],
+  deps = [":configuration_proto"],
+)
+
+python_proto_library(
+  name = "es9_py_pb2",
+  protos = [":es9_proto"],
+  visibility = ["//visibility:public"],
+)
+
+python_grpc_library(
+  name = "service_py_pb2_grpc",
+  protos = [":service_proto"],
+  visibility = ["//visibility:public"],
+)

@@ -1,0 +1,23 @@
+
+py_library(
+  name = "interface",
+  srcs = ["interface.py"],
+  deps = [
+    "//proto:es9_py_pb2",
+  ],
+  visibility = [
+    "//visibility:public"
+  ],
+)
+
+py_binary(
+  name = "cli",
+  srcs = ["cli.py"],
+  deps = [
+    ":interface",
+    "@pypi//click",
+    "@pypi//loguru",
+    "@pypi//mido",
+    "@pypi//python_rtmidi",
+  ],
+)
