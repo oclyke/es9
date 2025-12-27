@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+package dev.oclyke.external.expert_sleepers.es9.v1;
+
 message Usage {
   float usage_dsp0 = 1;  // [0.0, 1.0]
   float usage_dsp1 = 2;  // [0.0, 1.0]

@@ -4,7 +4,7 @@ import click
 
 from datetime import datetime
 
-from es9.interface import (
+from interface import (
     ES9_SYSEX_HEADER,
     MessageType,
 

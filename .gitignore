@@ -1,5 +1,5 @@
-bazel-midimac
+.DS_Store
+bazel-es9
 bazel-out
 bazel-bin
 bazel-testlogs
-.venv
