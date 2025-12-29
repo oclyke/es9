@@ -121,12 +121,13 @@ function Knob({
   left = -150,
   right = 150,
   size = 40,
+  highlight = false,
   light = 'fade', // 'fade' | 'on' | 'off'
   lightColor = "#00f0ff",
   style = {},
 }) {
   const defaultTransitionIn = "stroke-opacity 0.1s ease"; // fade-in default
-  const defaultTransitionOut = "stroke-opacity 60s ease"; // fade-out default
+  const defaultTransitionOut = "stroke-opacity 5s ease"; // fade-out default
 
   const knobRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -190,19 +191,34 @@ function Knob({
   // --- Mouse enter/leave for hover fade ---
   const handleMouseEnter = () => {
     if (light === 'fade') {
-      setTransition("stroke-opacity 0.1s ease"); // quick fade-in
+      setTransition(defaultTransitionIn); // quick fade-in
       setGlowOpacity(1);
     }
   };
   const handleMouseLeave = () => {
     if (light === 'fade' && !isDragging) {
-      setTransition("stroke-opacity 2s ease"); // slow fade-out
+      setTransition(defaultTransitionOut); // slow fade-out
       setGlowOpacity(0);
     }
   };
 
-  // --- Determine static glow state for 'on'/'off' ---
-  const finalGlowOpacity = light === 'on' ? 1 : light === 'off' ? 0 : glowOpacity;
+  let finalGlowOpacity = 0;
+  let finalTransition = defaultTransitionOut;
+  if (light === 'on') {
+    finalGlowOpacity = 1;
+    finalTransition = defaultTransitionIn;
+  } else if (light === 'off') {
+    finalGlowOpacity = 0;
+    finalTransition = defaultTransitionIn;
+  } else if (light === 'fade') {
+    finalGlowOpacity = glowOpacity;
+    finalTransition = transition;
+
+    if (highlight) {
+      finalGlowOpacity = 1;
+      finalTransition = defaultTransitionIn;
+    }
+  }
 
   return (
     <div
@@ -222,6 +238,7 @@ function Knob({
         ...style,
       }}
     >
+      {/* Neon Glow Value Indicator */}
       <svg
         width="100%"
         height="100%"
@@ -241,12 +258,12 @@ function Knob({
         <path
           d={pathData}
           stroke={lightColor}
-          strokeWidth="4"
+          strokeWidth="2"
           fill="none"
           strokeLinecap="round"
           filter="url(#glow)"
           style={{
-            transition: light === "fade" ? transition : "none",
+            transition: finalTransition,
             strokeOpacity: finalGlowOpacity,
           }}
         />
@@ -277,27 +294,29 @@ function Mixer(props) {
 
   const [matrix, setMatrix] = useState(
     Array.from({ length: dimInput }, () =>
-      Array.from({ length: dimOutput }, () => 0.5)
+      Array.from({ length: dimOutput }, () => 0.0)
     )
   );
+  const [highlightRow, setHighlightRow] = useState(null);
+  const [highlightCol, setHighlightCol] = useState(null);
 
   const palettes = {
     mixer1: {
       inputs: [
         COLORS.violet,
         COLORS.lavender,
-        COLORS.purple,
         COLORS.amethyst,
+        COLORS.purple,
         COLORS.orchid,
+        COLORS.hot_pink,
         COLORS.shocking_pink,
         COLORS.vivid_pink,
-        COLORS.hot_pink,
       ],
       outputs: [
         COLORS.red,
-        COLORS.dark_orange,
         COLORS.pumpkin,
         COLORS.orange,
+        COLORS.dark_orange,
         COLORS.amber,
         COLORS.light_orange,
         COLORS.yellow,
@@ -316,8 +335,8 @@ function Mixer(props) {
         COLORS.turquoise,
       ],
       outputs: [
-        COLORS.electric_blue,
         COLORS.light_blue,
+        COLORS.electric_blue,
         COLORS.sky_blue,
         COLORS.deep_sky_blue,
         COLORS.dodger_blue,
@@ -368,19 +387,29 @@ function Mixer(props) {
               return (
               
               <div key={"input-label-" + input}
-                className="orbitron-heavy"
-                style={{
-                  gridColumn: input + 1,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  color: color,
-                  textShadow: shadow,
-                  fontWeight: "bold",
-                  rotate: "-60deg",
+                onMouseEnter={() => {
+                  setHighlightRow(input);
                 }}
-              >
-                in:{input + 1}
+                onMouseLeave={() => {
+                  setHighlightRow(null);
+                }}
+                >
+
+                <div
+                  className="orbitron-heavy"
+                  style={{
+                    gridColumn: input + 1,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    color: color,
+                    textShadow: shadow,
+                    fontWeight: "bold",
+                    rotate: "-60deg",
+                  }}
+                >
+                  in:{input + 1}
+                </div>
               </div>
             )})}
           </div>
@@ -408,8 +437,8 @@ function Mixer(props) {
                 <Knob
                   value={matrix[input][output]}
                   size={knobSize}
-                  // light="fade"
-                  light="on"
+                  highlight={highlightRow === input || highlightCol === output}
+                  light="fade"
                   lightColor={blendHexColors(
                     palettes["mixer" + props.id].inputs[input],
                     palettes["mixer" + props.id].outputs[output],
@@ -448,20 +477,31 @@ function Mixer(props) {
               const color = palettes["mixer" + props.id].outputs[output];
               const shadow = neonTextShadow(color);
               return (
-              <div key={"output-label-" + output}
-                  className="orbitron-heavy"
-                  style={{
-                    gridRow: index + 1, // note: use the index here
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    color: color,
-                    textShadow: shadow,
-                    fontWeight: "bold",
-                    rotate: "30deg",
-                  }}
-              >
-                out:{output + 1}
+              <div
+                key={"output-label-" + output}
+                onMouseEnter={() => {
+                  setHighlightCol(output);
+                }}
+                onMouseLeave={() => {
+                  setHighlightCol(null);
+                }}
+                >
+
+                <div
+                    className="orbitron-heavy"
+                    style={{
+                      gridRow: index + 1, // note: use the index here
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      color: color,
+                      textShadow: shadow,
+                      fontWeight: "bold",
+                      rotate: "30deg",
+                    }}
+                >
+                  out:{output + 1}
+                </div>
               </div>
             )})}
           </div>
