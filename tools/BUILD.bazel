@@ -1,0 +1,8 @@
+py_binary(
+  name = "genknob",
+  srcs = ["genknob.py"],
+  deps = [
+    "@pypi//click",
+    "@pypi//loguru",
+  ],
+)

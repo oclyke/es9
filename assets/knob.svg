@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="150mm"
+   height="150mm"
+   viewBox="0 0 150 150"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
+   sodipodi:docname="knob.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.94994677"
+     inkscape:cx="272.12051"
+     inkscape:cy="200.01121"
+     inkscape:window-width="1414"
+     inkscape:window-height="833"
+     inkscape:window-x="0"
+     inkscape:window-y="38"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(75,75)">
+    <circle
+       style="fill:#4d4d4d;stroke:none;stroke-width:1.125"
+       id="center-2"
+       cx="0"
+       cy="5.3290705e-15"
+       r="75" />
+    <circle
+       style="fill:#666666;stroke:none;stroke-width:0.975"
+       id="center-2-4"
+       cx="4.4408921e-15"
+       cy="4.4408921e-15"
+       r="65" />
+    <circle
+       style="fill:#ececec;stroke:none;stroke-width:0.744418"
+       id="center"
+       cx="1.8179417e-06"
+       cy="1.3709068e-06"
+       r="49.627792" />
+    <rect
+       style="fill:#ececec;stroke:none;stroke-width:0.798726"
+       id="rect1"
+       width="30"
+       height="40"
+       x="-15"
+       y="-75" />
+    <g
+       id="g9"
+       style="fill:#4d4d4d">
+      <rect
+         style="fill:#4d4d4d;stroke:none;stroke-width:0.958081"
+         id="rect2"
+         width="30"
+         height="15"
+         x="-15"
+         y="58.812923"
+         inkscape:tile-cx="0"
+         inkscape:tile-cy="62.499999"
+         inkscape:tile-w="29.999999"
+         inkscape:tile-h="15"
+         inkscape:tile-x0="-15"
+         inkscape:tile-y0="54.999999"
+         ry="7.5" />
+      <rect
+         style="fill:#4d4d4d;stroke:none;stroke-width:0.958081"
+         id="rect2-8"
+         width="30"
+         height="15"
+         x="-17.110252"
+         y="56.264793"
+         inkscape:tile-cx="0"
+         inkscape:tile-cy="62.499999"
+         inkscape:tile-w="29.999999"
+         inkscape:tile-h="15"
+         inkscape:tile-x0="-15"
+         inkscape:tile-y0="54.999999"
+         ry="7.5"
+         transform="rotate(-71.585153)" />
+      <rect
+         style="fill:#4d4d4d;stroke:none;stroke-width:0.958081"
+         id="rect2-8-0"
+         width="30"
+         height="15"
+         x="-11.836142"
+         y="56.070763"
+         inkscape:tile-cx="0"
+         inkscape:tile-cy="62.499999"
+         inkscape:tile-w="29.999999"
+         inkscape:tile-h="15"
+         inkscape:tile-x0="-15"
+         inkscape:tile-y0="54.999999"
+         ry="7.5"
+         transform="rotate(-134.79989)" />
+      <rect
+         style="fill:#4d4d4d;stroke:none;stroke-width:0.958081"
+         id="rect2-8-8"
+         width="30"
+         height="15"
+         x="-16.722193"
+         y="56.207565"
+         inkscape:tile-cx="0"
+         inkscape:tile-cy="62.499999"
+         inkscape:tile-w="29.999999"
+         inkscape:tile-h="15"
+         inkscape:tile-x0="-15"
+         inkscape:tile-y0="54.999999"
+         ry="7.5"
+         transform="matrix(-0.31589491,-0.94879419,-0.94879419,0.31589491,0,0)" />
+      <rect
+         style="fill:#4d4d4d;stroke:none;stroke-width:0.958081"
+         id="rect2-8-0-7"
+         width="30"
+         height="15"
+         x="-11.610171"
+         y="56.391396"
+         inkscape:tile-cx="0"
+         inkscape:tile-cy="62.499999"
+         inkscape:tile-w="29.999999"
+         inkscape:tile-h="15"
+         inkscape:tile-x0="-15"
+         inkscape:tile-y0="54.999999"
+         ry="7.5"
+         transform="matrix(0.70463285,-0.70957209,-0.70957209,-0.70463285,0,0)" />
+    </g>
+  </g>
+</svg>

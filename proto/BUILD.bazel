@@ -1,4 +1,4 @@
-load("@rules_proto_grpc_python//:defs.bzl", "python_proto_library", "python_grpc_library", "python_proto_compile", "python_grpc_compile")
+load("@rules_proto_grpc_python//:defs.bzl", "python_proto_library", "python_grpc_library")
 
 proto_library(
   name = "es9_proto",
