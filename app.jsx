@@ -93,6 +93,23 @@ function blendHexColors(color1, color2, ratio = 0.5) {
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 
+/**
+ * Generate a stacked neon text-shadow string from a base color
+ * @param {string} color - The base color (hex, rgb, etc.)
+ * @param {number} layers - How many shadow layers
+ * @param {number} blurStep - How much to increase the blur per layer
+ * @returns {string} - CSS text-shadow value
+ */
+function neonTextShadow(color, layers = 4, blurStep = 5) {
+  const shadows = [];
+
+  for (let i = 1; i <= layers; i++) {
+    const blur = i * blurStep;
+    shadows.push(`0 0 ${blur}px ${color}`);
+  }
+
+  return shadows.join(", ");
+}
 
 
 function Knob({
@@ -315,14 +332,25 @@ function Mixer(props) {
   const cartesianProduct = (arrays) => arrays.reduce((a, b) => a.flatMap(d => b.map(e => [...d, e])), [[]]);
 
   return <div>
-    <h2>Mixer {props.id}</h2>
-
     <div
       id="panel"
       style={{
         backgroundColor: "#2a2a2aff",
+        padding: "20px",
+        fontWeight: "bold",
       }}
       >
+
+      {/* Mixer Title */}
+      <h2
+        className="monoton-regular"
+        style={{
+          textTransform: "uppercase",
+          color: "#e8e8e8ff",
+        }}
+      >
+        Mixer {props.id}
+      </h2>
 
       <div style={{ display: "flex", flexDirection: "row"}}>
         <div style={{ display: "flex", flexDirection: "column"}}>
@@ -332,25 +360,29 @@ function Mixer(props) {
             id="inputs"
             style={{ display: "grid", gridTemplateColumns: `repeat(${dimInput}, ${knobSize}px)`, gap: "5px", padding: "5px" }}
           >
-            {range(dimInput).map((input) => (
+            {range(dimInput).map((input) => {
+              
+              const color = palettes["mixer" + props.id].inputs[input];
+              const shadow = neonTextShadow(color);
+              
+              return (
+              
               <div key={"input-label-" + input}
+                className="orbitron-heavy"
                 style={{
                   gridColumn: input + 1,
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  width: knobSize,
-                  height: knobSize,
-                  backgroundColor: palettes["mixer" + props.id].inputs[input],
-                  color: "#000",
+                  color: color,
+                  textShadow: shadow,
                   fontWeight: "bold",
-                  borderRadius: "5px",
-                  boxShadow: "0 0 5px #00000088",
+                  rotate: "-60deg",
                 }}
               >
-                In {input + 1}
+                in:{input + 1}
               </div>
-            ))}
+            )})}
           </div>
 
           {/* Crosspoint Matrix Knobs */}
@@ -411,25 +443,27 @@ function Mixer(props) {
               marginTop: "5px",
             }}
           >
-            {range(dimOutput).map((output, index) => (
+            {range(dimOutput).map((output, index) => {
+
+              const color = palettes["mixer" + props.id].outputs[output];
+              const shadow = neonTextShadow(color);
+              return (
               <div key={"output-label-" + output}
+                  className="orbitron-heavy"
                   style={{
                     gridRow: index + 1, // note: use the index here
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    width: knobSize,
-                    height: knobSize,
-                    backgroundColor: palettes["mixer" + props.id].outputs[output],
-                    color: "#000",
+                    color: color,
+                    textShadow: shadow,
                     fontWeight: "bold",
-                    borderRadius: "5px",
-                    boxShadow: "0 0 5px #00000088",
+                    rotate: "30deg",
                   }}
               >
-                Out {output + 1}
+                out:{output + 1}
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </div>
