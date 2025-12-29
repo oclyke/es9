@@ -53,7 +53,6 @@ function Knob({
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     }
-
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
@@ -62,6 +61,20 @@ function Knob({
 
   const angle = valueToAngle(value);
 
+  // SVG arc calculation
+  const radius = size / 2 - 4; // leave padding
+  const startAngle = (left - 90) * (Math.PI / 180); // rotate to top-left
+  const endAngle = (angle - 90) * (Math.PI / 180);
+
+  const startX = size / 2 + radius * Math.cos(startAngle);
+  const startY = size / 2 + radius * Math.sin(startAngle);
+  const endX = size / 2 + radius * Math.cos(endAngle);
+  const endY = size / 2 + radius * Math.sin(endAngle);
+
+  const largeArcFlag = endAngle - startAngle <= Math.PI ? "0" : "1";
+
+  const pathData = `M ${startX} ${startY} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${endX} ${endY}`;
+
   return (
     <div
       ref={knobRef}
@@ -69,21 +82,58 @@ function Knob({
       style={{
         width: size,
         height: size,
-        display: "inline-block",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         cursor: "pointer",
         userSelect: "none",
+        position: "relative",
         ...style,
       }}
     >
+      {/* Background SVG path */}
+      <svg
+        width="100%"
+        height="100%"
+        viewBox={`0 0 ${size} ${size}`}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          overflow: "visible",
+        }}
+      >
+        <defs>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        <path
+          d={pathData}
+          stroke="#00f0ff"
+          strokeWidth="4"
+          fill="none"
+          strokeLinecap="round"
+          filter="url(#glow)"
+        />
+      </svg>
+
+      {/* Rotating knob image */}
       <img
         src="./assets/knob.svg"
         alt="Knob"
         draggable={false}
         style={{
-          width: "100%",
-          height: "100%",
+          width: "80%",
+          height: "80%",
           transform: `rotate(${angle}deg)`,
-          transformOrigin: "center center",
+          transformOrigin: "50% 50%",
+          position: "absolute",
         }}
       />
     </div>
@@ -94,6 +144,7 @@ function Knob({
 function Mixer(props) {
   const dimInput = 8;
   const dimOutput = 8;
+  const knobSize = 40;
 
   const [matrix, setMatrix] = useState(
     Array.from({ length: dimInput }, () =>
@@ -111,10 +162,10 @@ function Mixer(props) {
       id="panel"
       style={{
         display: "grid",
-        gridTemplateColumns: `repeat(${dimOutput}, 40px)`,
-        gridTemplateRows: `repeat(${dimInput}, 40px)`,
-        gap: "10px",
-        padding: "10px",
+        gridTemplateColumns: `repeat(${dimOutput}, ${knobSize}px)`,
+        gridTemplateRows: `repeat(${dimInput}, ${knobSize}px)`,
+        gap: "5px",
+        padding: "5px",
         backgroundColor: "#2a2a2aff",
       }}
     >
@@ -128,6 +179,7 @@ function Mixer(props) {
         >
           <Knob
             value={matrix[input][output]}
+            size={knobSize}
             onChange={(val) => {
               setMatrix((prev) => {
                 const newMatrix = prev.map(row => row.slice());
