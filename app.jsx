@@ -166,7 +166,7 @@ function Knob({
       window.removeEventListener("mouseup", handleMouseUp);
       if (light === 'fade') {
         setTransition(defaultTransitionOut);
-        setGlowOpacity(0);
+        setGlowOpacity(0.5);
       }
     }
     return () => {
@@ -198,7 +198,7 @@ function Knob({
   const handleMouseLeave = () => {
     if (light === 'fade' && !isDragging) {
       setTransition(defaultTransitionOut); // slow fade-out
-      setGlowOpacity(0);
+      setGlowOpacity(0.5);
     }
   };
 
@@ -208,7 +208,7 @@ function Knob({
     finalGlowOpacity = 1;
     finalTransition = defaultTransitionIn;
   } else if (light === 'off') {
-    finalGlowOpacity = 0;
+    finalGlowOpacity = 0.5;
     finalTransition = defaultTransitionIn;
   } else if (light === 'fade') {
     finalGlowOpacity = glowOpacity;
@@ -371,6 +371,11 @@ function Mixer(props) {
         Mixer {props.id}
       </h2>
 
+      {/* Lighting control area */}
+      <div id="lighting-control-area">
+        
+      </div>
+
       <div style={{ display: "flex", flexDirection: "row"}}>
         <div style={{ display: "flex", flexDirection: "column"}}>
 
@@ -382,7 +387,7 @@ function Mixer(props) {
             {range(dimInput).map((input) => {
               
               const color = palettes["mixer" + props.id].inputs[input];
-              const shadow = neonTextShadow(color);
+              const shadow = neonTextShadow(color, 1, 5);
               
               return (
               
@@ -475,7 +480,7 @@ function Mixer(props) {
             {range(dimOutput).map((output, index) => {
 
               const color = palettes["mixer" + props.id].outputs[output];
-              const shadow = neonTextShadow(color);
+              const shadow = neonTextShadow(color, 1, 5);
               return (
               <div
                 key={"output-label-" + output}
